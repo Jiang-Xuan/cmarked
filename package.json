@@ -1,7 +1,7 @@
 {
   "name": "cmarked",
   "version": "1.0.1",
-  "description": "中文的markdown编译器",
+  "description": "更符合汉语的markdown编译器",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
