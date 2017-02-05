@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Jiang-Xuan/cmarked/issues"
   },
-  "homepage": "https://github.com/Jiang-Xuan/cmarked#readme"
+  "homepage": "https://github.com/Jiang-Xuan/cmarked#readme",
+  "devDependencies": {
+    "chai": "^3.5.0"
+  }
 }

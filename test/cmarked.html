@@ -3,8 +3,106 @@
 <head>
 	<meta charset="UTF-8">
 	<title>cmarked</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		#inter {
+			display: flex;
+			justify-content: center;
+		}
+		#inter section {
+			width: 0px;
+			margin: 5px;
+		}
+		#inter #input {
+			flex-grow: 1;
+		}
+		#inter #compiled {
+			flex-grow: 1;
+			border: 1px dashed skyblue;
+		}
+		#inter #input textarea {
+			width: 100%;
+		}
+		#inter #output {
+			flex-grow: 1;
+			border: 1px dashed skyblue;
+		}
+		#regexp-test {
+			display: flex;
+		}
+		#regexp-test section {
+			width: 0px;
+			flex-grow: 1;
+			margin: 5px;
+		}
+		#regexp-test section textarea {
+			width: 100%;
+		}
+		#regexp-test section:nth-child(3) {
+			border: 1px dashed skyblue;
+		}
+	</style>
 </head>
 <body>
+	<h1 style="text-align: center">markdown编译器cmarked</h1>
+	<section id="regexp-test">
+		<section>
+			<textarea name="regexp" id="regexp" cols="30" rows="10"></textarea>
+			<button id="match">匹配</button>
+		</section>
+		<section>
+			<textarea name="string" id="string" cols="30" rows="10"></textarea>
+		</section>
+		<section id="match-result">
+			
+		</section>
+	</section>
+	<section id="inter">
+		<section id="input">
+			<textarea name="source" id="source" cols="30" rows="10"></textarea>
+			<button id="compile">编译</button>
+		</section>
+		<section id="compiled">
+			
+		</section>
+		<section id="output">
+			
+		</section>
+	</section>
 	<script src='../lib/cmarked.js'></script>
+
+	<script>
+		// markdown编译
+		document.querySelector('#compile').addEventListener('click', () => {
+			let source = document.querySelector('#source').value
+			let compiled = cmarked(source)
+			document.querySelector('#compiled').textContent = compiled
+			document.querySelector('#output').innerHTML = compiled
+		})
+
+		// 正则匹配
+		document.querySelector('#match').addEventListener('click', () => {
+			let regexp = eval(document.querySelector('#regexp').value)
+			console.log(regexp)
+			let string = document.querySelector('#string').value
+			let result = string.match(regexp)
+			console.log(result)
+			let output = ''
+			if(result) {
+				result.forEach((item, index) => {
+					output += index.toString().bold()
+						+ ':\t'
+						+ item.replace(/\r\n|\r|\n/, '<br>')
+									.replace(/ /gm, '&nbsp;')
+						+ '<br>'
+				})
+			} else {
+				output = 'null'
+			}
+			document.querySelector('#match-result').innerHTML = output
+		})
+	</script>
 </body>
 </html>
