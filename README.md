@@ -67,9 +67,9 @@ type: `Boolean` default: `false`
 ```js
 	var cmarked = require('cmarked')
 	console.log(cmarked('3. cmarked\n4. cmarked'))
-	//输出 
-	1. cmarked
-	2. cmarked
+	//输出效果
+	//1. cmarked
+	//2. cmarked
 ```
 
 例子 - 开启智能有序列表
@@ -77,9 +77,9 @@ type: `Boolean` default: `false`
 ```js
 	var cmarked = require('cmarked')
 	console.log(cmarked('3. cmarked\n4. cmarked'))
-	//输出
-	3. cmarked
-	4. cmarked
+	//输出效果
+	//3. cmarked
+	//4. cmarked
 ```
 
 
