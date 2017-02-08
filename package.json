@@ -1,6 +1,6 @@
 {
   "name": "cmarked",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "更符合汉语的markdown编译器",
   "main": "index.js",
   "scripts": {
