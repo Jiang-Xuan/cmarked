@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>cmarked</title>
+	<link rel="stylesheet" href="">
 	<style>
 		* {
 			box-sizing: border-box;
@@ -24,6 +25,7 @@
 		}
 		#inter #input textarea {
 			width: 100%;
+			height: 80vh;
 		}
 		#inter #output {
 			flex-grow: 1;
@@ -43,11 +45,15 @@
 		#regexp-test section:nth-child(3) {
 			border: 1px dashed skyblue;
 		}
+		#output-iframe {
+			width: 100%;
+			height: 80vh;
+		}
 	</style>
 </head>
 <body>
 	<h1 style="text-align: center">markdown编译器cmarked</h1>
-	<section id="regexp-test">
+	<!-- <section id="regexp-test">
 		<section>
 			<textarea name="regexp" id="regexp" cols="30" rows="10"></textarea>
 			<button id="match">匹配</button>
@@ -58,51 +64,83 @@
 		<section id="match-result">
 			
 		</section>
-	</section>
+	</section> -->
 	<section id="inter">
+		<button id="compile">编译</button>
 		<section id="input">
 			<textarea name="source" id="source" cols="30" rows="10"></textarea>
-			<button id="compile">编译</button>
 		</section>
-		<section id="compiled">
+		<!-- <section id="compiled">
 			
-		</section>
+		</section> -->
 		<section id="output">
-			
+			<iframe id="output-iframe">
+				
+			</iframe>
 		</section>
 	</section>
-	<script src='../lib/cmarked.js'></script>
+
+	<script src="http://localhost:3000/lib/cmarked.js"></script>
+	<script src="//cdn.bootcss.com/socket.io/1.4.5/socket.io.js"></script>
+	<script>
+	  var socket = io.connect('http://localhost:3000');
+	    socket.on('news', function (data) {
+	    	console.log(data)
+	     //  let cmarked = document.createElement('script')
+	     //  cmarked.src = 'http://localhost:3000/lib/cmarked.js'
+	     //  document.body.appendChild(cmarked)
+	     window.location.reload()
+	    });
+	</script>
 
 	<script>
 		// markdown编译
 		document.querySelector('#compile').addEventListener('click', () => {
 			let source = document.querySelector('#source').value
-			let compiled = cmarked(source)
-			document.querySelector('#compiled').textContent = compiled
-			document.querySelector('#output').innerHTML = compiled
+
+			let compiled = '<head><link rel="stylesheet" href="http://localhost:3000/test/github2.css"></head><body>'
+			compiled += cmarked(source)
+			compiled += '</body>'
+
+			let outputIframe = document.getElementById('output-iframe')
+
+			let outputIframeDoc = outputIframe.contentWindow.document
+			outputIframeDoc.designMode = 'on'
+			outputIframeDoc.open()
+			outputIframeDoc.write(compiled)
+			outputIframeDoc.close()
+			outputIframeDoc.designMode = 'off'
+			outputIframeDoc.location.reload()
 		})
 
-		// 正则匹配
-		document.querySelector('#match').addEventListener('click', () => {
-			let regexp = eval(document.querySelector('#regexp').value)
-			console.log(regexp)
-			let string = document.querySelector('#string').value
-			let result = string.match(regexp)
-			console.log(result)
-			let output = ''
-			if(result) {
-				result.forEach((item, index) => {
-					output += index.toString().bold()
-						+ ':\t'
-						+ item.replace(/\r\n|\r|\n/, '<br>')
-									.replace(/ /gm, '&nbsp;')
-						+ '<br>'
-				})
-			} else {
-				output = 'null'
+		// // 正则匹配
+		// // document.querySelector('#match').addEventListener('click', () => {
+		// // 	let regexp = eval(document.querySelector('#regexp').value)
+		// // 	console.log(regexp)
+		// // 	let string = document.querySelector('#string').value
+		// // 	let result = string.match(regexp)
+		// // 	console.log(result)
+		// // 	let output = ''
+		// // 	if(result) {
+		// // 		result.forEach((item, index) => {
+		// // 			output += index.toString().bold()
+		// // 				+ ':\t'
+		// // 				+ item.replace(/\r\n|\r|\n/, '<br>')
+		// // 							.replace(/ /gm, '&nbsp;')
+		// // 				+ '<br>'
+		// // 		})
+		// // 	} else {
+		// // 		output = 'null'
+		// // 	}
+		// // 	document.querySelector('#match-result').innerHTML = output
+		// })
+	</script>
+	<script>
+		document.onkeydown = (e) => {
+			if(e.ctrlKey && e.key === 'l') {
+				document.querySelector('#compile').click()
 			}
-			document.querySelector('#match-result').innerHTML = output
-		})
+		}
 	</script>
 </body>
 </html>
