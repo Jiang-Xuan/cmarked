@@ -53,26 +53,11 @@
 </head>
 <body>
 	<h1 style="text-align: center">markdown编译器cmarked</h1>
-	<!-- <section id="regexp-test">
-		<section>
-			<textarea name="regexp" id="regexp" cols="30" rows="10"></textarea>
-			<button id="match">匹配</button>
-		</section>
-		<section>
-			<textarea name="string" id="string" cols="30" rows="10"></textarea>
-		</section>
-		<section id="match-result">
-			
-		</section>
-	</section> -->
 	<section id="inter">
 		<button id="compile">编译</button>
 		<section id="input">
 			<textarea name="source" id="source" cols="30" rows="10"></textarea>
 		</section>
-		<!-- <section id="compiled">
-			
-		</section> -->
 		<section id="output">
 			<iframe id="output-iframe">
 				
@@ -86,9 +71,6 @@
 	  var socket = io.connect('http://localhost:3000');
 	    socket.on('news', function (data) {
 	    	console.log(data)
-	     //  let cmarked = document.createElement('script')
-	     //  cmarked.src = 'http://localhost:3000/lib/cmarked.js'
-	     //  document.body.appendChild(cmarked)
 	     window.location.reload()
 	    });
 	</script>
@@ -112,28 +94,6 @@
 			outputIframeDoc.designMode = 'off'
 			outputIframeDoc.location.reload()
 		})
-
-		// // 正则匹配
-		// // document.querySelector('#match').addEventListener('click', () => {
-		// // 	let regexp = eval(document.querySelector('#regexp').value)
-		// // 	console.log(regexp)
-		// // 	let string = document.querySelector('#string').value
-		// // 	let result = string.match(regexp)
-		// // 	console.log(result)
-		// // 	let output = ''
-		// // 	if(result) {
-		// // 		result.forEach((item, index) => {
-		// // 			output += index.toString().bold()
-		// // 				+ ':\t'
-		// // 				+ item.replace(/\r\n|\r|\n/, '<br>')
-		// // 							.replace(/ /gm, '&nbsp;')
-		// // 				+ '<br>'
-		// // 		})
-		// // 	} else {
-		// // 		output = 'null'
-		// // 	}
-		// // 	document.querySelector('#match-result').innerHTML = output
-		// })
 	</script>
 	<script>
 		document.onkeydown = (e) => {
