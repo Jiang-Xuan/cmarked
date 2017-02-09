@@ -83,5 +83,10 @@ type: `Boolean` default: `false`
 ```
 
 
+目前该JavaScript包处于开发阶段，只在我的博客网站上面进行试用<http://www.jiangxuan.org>
+
+如果你是开发者，请阅读dev.md
+
+
 
 
